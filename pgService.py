@@ -6,16 +6,16 @@ import logger
 import time
 import datetime
 
-class pg_driver():
+class pg_driver:
 	def __init__(self):
 		self.connection 	= None
 		self.log_driver		= logger.log_driver()
 
 	def __enter__(self):
-		pass
+		return self
 
-	def __exit__(self):
-		self.shut_down		# Ensures closure of the connection to database
+	def __exit__(self, type, value, traceback):
+		self.shut_down()		# Ensures closure of the connection to database
 		return
 
 	def connect_to_database(self, dbname, user, password, host, port):
@@ -102,7 +102,7 @@ class pg_driver():
 
 
 if __name__ == "__main__":
-	pg = pg_driver()
-	pg.connect_to_database(dbname='grow', user='Johan', password='None', host='localhost', port='0')
-	resp = pg.get_plant_growth(1, '2016-08-13')
-	print(resp)
+	with pg_driver() as pg:
+		pg.connect_to_database(dbname='grow', user='Johan', password='None', host='localhost', port='0')
+		resp = pg.get_plant_growth(1, '2016-08-13')
+		print(resp)
