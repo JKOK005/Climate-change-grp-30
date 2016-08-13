@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<style>
+#myContainer {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  background: yellow;
+}
+#myAnimation {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background-color: black;
+}
+#myFlower {
+  width: 100%;
+  /*height: 50px;*/
+  /*position: absolute;*/
+  /*background-color: red;*/
+}
+#myPot {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  /*background-color: brown;*/
+  
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+</style>
+<body>
+
+<p>
+<button onclick="myMove()">Click Me</button>
+</p>
+
+<div id ="myContainer">
+<div id ="myFlower"><img src="../img/redflower.png"></div>
+<div id ="myPot" style="
+transform: translate(0px, 50px);">  
+</div>
+
+<div id ="myFlower" style="
+transform: translate(0px, 100px);"><img src="../img/redflower.png"></div>
+<div id ="myPot" style="
+transform: translate(0px, 100px);">  
+
+</div>
+</div>
+
+<script>
+
+function myMove() {
+  var flower = document.getElementById("myFlower");
+  //var pot=document.getElementById("myPot");
+  var pos = 0;
+  var counter=0;
+  var a=0;
+  var id = setInterval(frame, 500);
+  function frame() {
+    if (pos == 350) {
+      clearInterval(id);
+    } else {
+      //pos++;
+      
+      a=(counter%2)*5;
+      counter++;
+      //elem.style.backgroundColor(red);
+      flower.style.top = (pos +a)+ 'px';
+      //elem.style.left = pos + 'px';
+    }
+  }
+}
+'use strict';
+function getFiles(dir){
+    fileList = [];
+
+    var files = fs.readdirSync(dir);
+    for(var i in files){
+        if (!files.hasOwnProperty(i)) continue;
+        var name = dir+'/'+files[i];
+        if (!fs.statSync(name).isDirectory()){
+            fileList.push(name);
+        }
+    }
+    return fileList;
+}
+
+</script>
+
+</body>
+</html>
+
