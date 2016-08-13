@@ -1,1 +1,2 @@
 INFO:werkzeug:127.0.0.1 - - [14/Aug/2016 01:28:20] "GET /1 HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/sohamghosh/src/Climate-change-grp-30/pgService.py', reloading

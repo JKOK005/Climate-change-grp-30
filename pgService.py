@@ -104,10 +104,3 @@ class pg_driver():
 
     def shut_down(self):
         self.connection.close()
-
-
-# if __name__ == "__main__":
-    # pg = pg_driver()
-    # pg.connect_to_database(dbname='grow', user='Johan', password='None', host='localhost', port='0')
-    # resp = pg.get_plant_growth(1, '2016-08-13')
-    # print(resp)
