@@ -14,10 +14,8 @@ $(function() {
             if (tree[2] > height)
               height = tree[2];
           });
-          sz = Math.min(375/height, 1252.0/width);
+          sz = Math.min(375/height, 900.0/width);
 
-          console.log(width);
-          console.log(height);
           generateGarden(width,height, sz);
 
           response.trees.forEach(function(tree){
@@ -45,22 +43,60 @@ $(function() {
         }
       }
     }
+
+    var getGrowthLevel = function(lvl_growth){
+      if (lvl_growth > 0.875)
+        return 8;
+      else if (lvl_growth > 0.75)
+        return 7;
+      else if (lvl_growth > 0.625)
+        return 6;
+      else if (lvl_growth > 0.5)
+        return 5;
+      else if (lvl_growth > 0.375)
+        return 4;
+      else if (lvl_growth > 0.25)
+        return 3;
+      else if (lvl_growth > 0.125)
+        return 2;
+      else if (lvl_growth > 0.0)
+        return 1;
+    }
+
+    var imageName = function(lvl){
+      var full_grown = ['cedar.png', 'maple.png', 'tree-10.png', 'wisteria.png', 'baobab.png']
+      if (lvl > 6){
+        return 'tree/' + full_grown[Math.floor(Math.random() * 5)];
+      } else if (lvl > 4) {
+        return 'flower.png';
+      } else if (lvl > 3) {
+        return 'longplant.png';
+      } else {
+        return 'flower-pot.png';
+      }
+    }
+
     var decorateCell = function(x_axis, y_axis, lvl_growth){
+         growthLevel = getGrowthLevel(lvl_growth);
          decoratedcell = '.cell[x='+x_axis+'][y='+y_axis+']';
-         myplant='<img src="../static/img/redflower.png">'
+         lvl = getGrowthLevel(lvl_growth);
+         myplant='<img src="../static/img/' + imageName(lvl) + '">'
          
         $(myplant).attr('id','myFlower').addClass("plant").appendTo(decoratedcell);
 
         myMove();
     }
-    var generateGarden = function(mylength, mywidth, celldim){
-        var garden_width = celldim * (mywidth + 1) + (mywidth) * 2 + 2;
+    var generateGarden = function(mywidth, myheight, celldim){
+          console.log(mywidth);
+          console.log(myheight);
+          console.log(celldim);
+        var garden_width = celldim * (mywidth) + (mywidth) * 2 + 2;
         $('.garden').width(garden_width);
         console.log('calc(50% - ' + garden_width/2.0 + ')');
         $('.garden').css('margin-left', 'calc(50% - ' + garden_width/2.0 + 'px)');
-        for( i = 0; i < mylength; i++){
-            for( j=0; j<mywidth; j++){
-                $('<div></div>').attr('id', i * 8 + j).attr('class', 'cell').attr('x', i).attr('y', j).appendTo(".garden");
+        for( i = 0; i < myheight; i++){
+            for( j=0; j< mywidth; j++){
+                $('<div></div>').attr('id', i * 8 + j).attr('class', 'cell').attr('y', i).attr('x', j).appendTo(".garden");
             }
         }
         $('.cell').height(celldim).width(celldim);
