@@ -1,1 +1,1 @@
-INFO:root:Query successful at: 2016-08-13 21:48:44
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2016 01:28:20] "GET /1 HTTP/1.1" 200 -

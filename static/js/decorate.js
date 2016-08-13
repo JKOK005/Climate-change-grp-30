@@ -1,12 +1,30 @@
 
 $(function() {
     $(document).ready(function(){
+        $.ajax({
+          url: 'http://127.0.0.1:5000/1',
+          dataType: 'json'
+        }).done(function(response){
+          var width = 0;
+          var height = 0;
+          response.trees.forEach(function(tree){
+            // response is (growth_level, x, y)
+            if (tree[1] > width)
+              width = tree[1];
+            if (tree[2] > height)
+              height = tree[2];
+          });
+          sz = Math.min(375/height, 1252.0/width);
+
+          console.log(width);
+          console.log(height);
+          generateGarden(width,height, sz);
+
+          response.trees.forEach(function(tree){
+            decorateCell(tree[1]-1, tree[2]-1, tree[0]);
+          });
+        });
         
-        generateGarden(10,10,80);
-        decorateCell(0,0);
-        decorateCell(4,6);
-        decorateCell(0,3);
-        decorateCell(4,2);
     });
     
     var myMove = function() {
@@ -27,7 +45,7 @@ $(function() {
         }
       }
     }
-    var decorateCell = function(x_axis, y_axis){
+    var decorateCell = function(x_axis, y_axis, lvl_growth){
          decoratedcell = '.cell[x='+x_axis+'][y='+y_axis+']';
          myplant='<img src="../static/img/redflower.png">'
          
@@ -36,7 +54,10 @@ $(function() {
         myMove();
     }
     var generateGarden = function(mylength, mywidth, celldim){
-        $('.garden').width(mywidth*(celldim+2));
+        var garden_width = celldim * (mywidth + 1) + (mywidth) * 2 + 2;
+        $('.garden').width(garden_width);
+        console.log('calc(50% - ' + garden_width/2.0 + ')');
+        $('.garden').css('margin-left', 'calc(50% - ' + garden_width/2.0 + 'px)');
         for( i = 0; i < mylength; i++){
             for( j=0; j<mywidth; j++){
                 $('<div></div>').attr('id', i * 8 + j).attr('class', 'cell').attr('x', i).attr('y', j).appendTo(".garden");
