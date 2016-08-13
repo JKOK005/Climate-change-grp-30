@@ -11,6 +11,13 @@ class pg_driver():
 		self.connection 	= None
 		self.log_driver		= logger.log_driver()
 
+	def __enter__(self):
+		pass
+
+	def __exit__(self):
+		self.shut_down		# Ensures closure of the connection to database
+		return
+
 	def connect_to_database(self, dbname, user, password, host, port):
 		"""
 		Attempts to establish connection with the Postgres database

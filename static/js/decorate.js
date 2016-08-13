@@ -19,7 +19,7 @@ $(function() {
           clearInterval(id);
         } else {
           //pos++;
-           console.log("Hihi");
+           // console.log("Hihi");
           a=(counter%2)*5;
           counter++;
           $(".plant").css("marginTop", (pos +a)+'px');
