@@ -29,7 +29,7 @@ $(function() {
     }
     var decorateCell = function(x_axis, y_axis){
          decoratedcell = '.cell[x='+x_axis+'][y='+y_axis+']';
-         myplant='<img src="../img/redflower.png">'
+         myplant='<img src="../static/img/redflower.png">'
          
         $(myplant).attr('id','myFlower').addClass("plant").appendTo(decoratedcell);
 
