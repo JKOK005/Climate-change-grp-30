@@ -1,1 +1,2 @@
-INFO:werkzeug:127.0.0.1 - - [14/Aug/2016 02:47:40] "GET /1 HTTP/1.1" 200 -
+INFO:werkzeug:192.168.8.103 - - [14/Aug/2016 09:00:22] "GET /1 HTTP/1.1" 200 -
+INFO:werkzeug:192.168.8.103 - - [14/Aug/2016 09:00:22] "GET /static/img/tree/tree-10.png HTTP/1.1" 200 -

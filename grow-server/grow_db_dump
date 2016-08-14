@@ -1,0 +1,340 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.0
+-- Dumped by pg_dump version 9.5.0
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: departments; Type: TABLE; Schema: public; Owner: sohamghosh
+--
+
+CREATE TABLE departments (
+    id integer NOT NULL,
+    name text
+);
+
+
+ALTER TABLE departments OWNER TO sohamghosh;
+
+--
+-- Name: departments_id_seq; Type: SEQUENCE; Schema: public; Owner: sohamghosh
+--
+
+CREATE SEQUENCE departments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE departments_id_seq OWNER TO sohamghosh;
+
+--
+-- Name: departments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sohamghosh
+--
+
+ALTER SEQUENCE departments_id_seq OWNED BY departments.id;
+
+
+--
+-- Name: meeting_rooms; Type: TABLE; Schema: public; Owner: sohamghosh
+--
+
+CREATE TABLE meeting_rooms (
+    id integer NOT NULL,
+    occupancy integer DEFAULT 0,
+    name text DEFAULT 'Room room'::text,
+    capacity integer DEFAULT 10,
+    CONSTRAINT meeting_rooms_occupancy_check CHECK ((occupancy >= 0))
+);
+
+
+ALTER TABLE meeting_rooms OWNER TO sohamghosh;
+
+--
+-- Name: table1_id_seq; Type: SEQUENCE; Schema: public; Owner: sohamghosh
+--
+
+CREATE SEQUENCE table1_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE table1_id_seq OWNER TO sohamghosh;
+
+--
+-- Name: table1_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sohamghosh
+--
+
+ALTER SEQUENCE table1_id_seq OWNED BY meeting_rooms.id;
+
+
+--
+-- Name: trees; Type: TABLE; Schema: public; Owner: sohamghosh
+--
+
+CREATE TABLE trees (
+    id integer NOT NULL,
+    start timestamp without time zone DEFAULT now(),
+    lvl_growth double precision DEFAULT '0'::double precision,
+    plant_date timestamp without time zone,
+    x integer,
+    y integer,
+    "user" integer,
+    killed boolean DEFAULT false,
+    curr_growth_rate double precision DEFAULT '1'::double precision
+);
+
+
+ALTER TABLE trees OWNER TO sohamghosh;
+
+--
+-- Name: tree_id_seq; Type: SEQUENCE; Schema: public; Owner: sohamghosh
+--
+
+CREATE SEQUENCE tree_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tree_id_seq OWNER TO sohamghosh;
+
+--
+-- Name: tree_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sohamghosh
+--
+
+ALTER SEQUENCE tree_id_seq OWNED BY trees.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: sohamghosh
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    name text DEFAULT 'Mr. McPerson'::text,
+    meeting_room integer,
+    department integer
+);
+
+
+ALTER TABLE users OWNER TO sohamghosh;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: sohamghosh
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO sohamghosh;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sohamghosh
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY departments ALTER COLUMN id SET DEFAULT nextval('departments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY meeting_rooms ALTER COLUMN id SET DEFAULT nextval('table1_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY trees ALTER COLUMN id SET DEFAULT nextval('tree_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: departments; Type: TABLE DATA; Schema: public; Owner: sohamghosh
+--
+
+COPY departments (id, name) FROM stdin;
+1	Technology
+\.
+
+
+--
+-- Name: departments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sohamghosh
+--
+
+SELECT pg_catalog.setval('departments_id_seq', 1, true);
+
+
+--
+-- Data for Name: meeting_rooms; Type: TABLE DATA; Schema: public; Owner: sohamghosh
+--
+
+COPY meeting_rooms (id, occupancy, name, capacity) FROM stdin;
+2	1	Room 1	10
+\.
+
+
+--
+-- Name: table1_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sohamghosh
+--
+
+SELECT pg_catalog.setval('table1_id_seq', 2, true);
+
+
+--
+-- Name: tree_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sohamghosh
+--
+
+SELECT pg_catalog.setval('tree_id_seq', 1, false);
+
+
+--
+-- Data for Name: trees; Type: TABLE DATA; Schema: public; Owner: sohamghosh
+--
+
+COPY trees (id, start, lvl_growth, plant_date, x, y, "user", killed, curr_growth_rate) FROM stdin;
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: sohamghosh
+--
+
+COPY users (id, name, meeting_room, department) FROM stdin;
+1	Soham	2	1
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sohamghosh
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, true);
+
+
+--
+-- Name: departments_pkey; Type: CONSTRAINT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY departments
+    ADD CONSTRAINT departments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: table1_pkey; Type: CONSTRAINT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY meeting_rooms
+    ADD CONSTRAINT table1_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tree_pkey; Type: CONSTRAINT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY trees
+    ADD CONSTRAINT tree_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tree_user_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY trees
+    ADD CONSTRAINT tree_user_fkey FOREIGN KEY ("user") REFERENCES users(id);
+
+
+--
+-- Name: users_department_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_department_fkey FOREIGN KEY (department) REFERENCES departments(id);
+
+
+--
+-- Name: users_meeting_room_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sohamghosh
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_meeting_room_fkey FOREIGN KEY (meeting_room) REFERENCES meeting_rooms(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: sohamghosh
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM sohamghosh;
+GRANT ALL ON SCHEMA public TO sohamghosh;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

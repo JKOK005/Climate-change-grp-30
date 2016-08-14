@@ -70,8 +70,8 @@ class pg_driver():
             user_id = ','.join([str(i[0]) for i in resp])
 
             query_statement = """
-                SELECT lvl_growth, x, y FROM trees
-                    WHERE id IN ({0}) 
+                SELECT lvl_growth, x, y FROM trees t
+                    WHERE t.user IN ({0}) 
                     AND EXTRACT(DAY FROM plant_date) <= {1}
                     AND EXTRACT(MONTH FROM plant_date) <= {2}
                     AND EXTRACT(YEAR FROM plant_date) <= {3}

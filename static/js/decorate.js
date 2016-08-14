@@ -2,7 +2,7 @@
 $(function() {
     $(document).ready(function(){
         $.ajax({
-          url: 'http://127.0.0.1:5000/1',
+          url: '/1',
           dataType: 'json'
         }).done(function(response){
           var width = 0;
@@ -64,15 +64,15 @@ $(function() {
     }
 
     var imageName = function(lvl){
-      var full_grown = ['cedar.png', 'maple.png', 'tree-10.png', 'wisteria.png', 'baobab.png']
+      var full_grown = ['cedar.png', 'maple.png', 'tree-10.png', 'wisteria.png', 'baobab.png'];
       if (lvl > 6){
         return 'tree/' + full_grown[Math.floor(Math.random() * 5)];
       } else if (lvl > 4) {
-        return 'flower.png';
+        return 'flower-plant.png';
       } else if (lvl > 3) {
         return 'longplant.png';
       } else {
-        return 'flower-pot.png';
+        return 'flower-pot2.png';
       }
     }
 

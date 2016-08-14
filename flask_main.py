@@ -34,9 +34,9 @@ def garden_info(department):
     return jsonify({'trees': resp})
 
 
-@app.route('/', methods=['GET'])
+@app.route('/garden', methods=['GET'])
 def show_tmp():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')
