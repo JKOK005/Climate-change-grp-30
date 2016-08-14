@@ -1,26 +1,15 @@
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+Grow app
+-------------
 
+This project was for the CLimate Innovation Challenge 2016.
 
-Hi there! Welcome to Cloud9 IDE!
+Today, people in offices exhibit behaviour which is sub-par: for example, they may take up a meeting room to work by themselves, wasting electricity or print lots of paper that they do not need to.
 
-To get you started, we included a small hello world application.
+This is an app to reward good behaviour by growing a virtual plant whose health depends on the user's good (or bad) behavior. At the end of the week, the user gets a tree which has grown based on how well the user has followed green practices - and it can be placed on the department garden. By adding in the department garden concept we hope to build healthy competition between departments and encourage intra-department cohesion.
 
-1) Open the hello-world.html file
+One of the features we implemented was checking if a user is in a meeting room with enough users (based on room capacity) by passively associating with a bluetooth AP placed in each room.
 
-2) Click on the Preview button to open a live preview pane
-
-3) Make some changes to the file, save, watch the preview, and have fun!
-
-Happy coding!
-The Cloud9 IDE team
-
-
-## Support & Documentation
-
-Visit http://docs.c9.io for documentation, or http://support.c9.io for support.
-To watch some training videos, visit http://www.youtube.com/user/c9ide
+This repository consists of:
+- iOS app
+- NodeJS backend server for processing tree growth and AP association
+- Flask backend for rendering dashboard for department garden
